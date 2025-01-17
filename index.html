@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: "Times New Roman", serif;
+            text-align: center;
+            background-color: #121212; /* Black background */
+            color: #ffc300; /* Chrome yellow text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #timer {
+            font-size: 4em;
+            text-shadow: 2px 2px 5px #000;
+        }
+    </style>
+</head>
+<body>
+    <div id="timer">8888</div>
+    <script>
+        // Initial countdown time
+        const initialTime = 8888;
+
+        // Check if there's a saved time in localStorage
+        let countdown = localStorage.getItem("countdownTime");
+
+        // If no saved time, use the initial time
+        if (countdown === null) {
+            countdown = initialTime;
+            localStorage.setItem("countdownTime", countdown);
+        } else {
+            countdown = parseInt(countdown);
+        }
+
+        const timerElement = document.getElementById('timer');
+
+        // Countdown function
+        const interval = setInterval(() => {
+            if (countdown > 0) {
+                countdown--;
+                timerElement.textContent = countdown; // Display time in seconds
+                localStorage.setItem("countdownTime", countdown); // Save the updated time
+            } else {
+                clearInterval(interval);
+                timerElement.textContent = "0";
+                localStorage.removeItem("countdownTime"); // Remove saved time when finished
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
+
